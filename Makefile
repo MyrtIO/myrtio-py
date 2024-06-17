@@ -2,6 +2,12 @@ VERSION = 1.0.0
 VENV_PATH = ./venv
 VENV = . $(VENV_PATH)/bin/activate;
 
+.PHONY: clean
+clean:
+	rm -rf *.egg-info
+	rm -rf build
+	rm -rf dist
+
 .PHONY: test
 test:
 	$(VENV) pytest tests/*.py
@@ -31,3 +37,11 @@ configure: requirements.txt
 $(VENV_PATH):
 	python3.11 -m venv $(VENV_PATH)
 	$(VENV) pip install -r requirements.txt
+
+.PHONY: publish
+publish:
+	make clean
+	make build
+	git tag "v$(VERSION)"
+	git push --tags
+	$(VENV) python3 -m twine upload --repository pypi dist/* -umishamyrt
