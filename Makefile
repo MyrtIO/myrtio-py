@@ -44,4 +44,4 @@ publish:
 	make build
 	git tag "v$(VERSION)"
 	git push --tags
-	$(VENV) python3 -m twine upload --repository pypi dist/* -umishamyrt
+	$(VENV) python -m twine upload --repository pypi dist/*
