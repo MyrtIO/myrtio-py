@@ -1,4 +1,4 @@
-VERSION = 1.0.0
+VERSION = 1.0.1
 VENV_PATH = ./venv
 VENV = . $(VENV_PATH)/bin/activate;
 
@@ -40,6 +40,8 @@ $(VENV_PATH):
 
 .PHONY: publish
 publish:
+	git add Makefile
+	git commit -m "chore: release $(VERSION)"
 	make clean
 	make build
 	git tag "v$(VERSION)"
