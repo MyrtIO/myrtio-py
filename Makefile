@@ -8,7 +8,7 @@ COMMON_VERSION = 1.0.2
 
 UDP_TRANSPORT_DIR = ./myrtio-udp
 UDP_TRANSPORT_PACKAGE = $(UDP_TRANSPORT_DIR)/myrtio_udp
-UDP_TRANSPORT_VERSION = 1.0.0
+UDP_TRANSPORT_VERSION = 0.0.0
 
 define build-package
 	echo "$(2)" > "$(1)/.version"
@@ -24,7 +24,7 @@ define clean-package
 	rm -rf "$(1)"/*.egg-info
 	rm -rf "$(1)/build"
 	rm -rf "$(1)/dist"
-	rm "$(1)/.version"
+	rm -f "$(1)/.version"
 endef
 
 define publish-package
