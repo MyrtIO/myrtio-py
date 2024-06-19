@@ -7,9 +7,9 @@ name = "myrtio-udp"
 authors = [
     {name = "Mikhael Khrustik", email = "misha@myrt.co"},
 ]
-description = "MyrtIO protocol support for Python"
+description = "MyrtIO protocol via UDP"
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.10"
 keywords = ["cli", "command-line-tool"]
 license = {text = "MIT"}
 classifiers = [
@@ -21,7 +21,10 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
 ]
-dependencies = ["asyncio-datagram==1.4.0"]
+dependencies = [
+    "asyncio-datagram==1.4.0",
+    "myrtio==1.0.2",
+]
 dynamic = ["version"]
 
 [tool.setuptools.dynamic]

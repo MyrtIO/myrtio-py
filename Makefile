@@ -2,13 +2,13 @@ VENV_PATH = ./venv
 VENV = . $(VENV_PATH)/bin/activate;
 ROOT_VENV = . .$(VENV_PATH)/bin/activate;
 
-COMMON_DIR = ./myrtio
+COMMON_DIR = myrtio
 COMMON_PACKGE = $(COMMON_DIR)/myrtio
 COMMON_VERSION = 1.0.2
 
-UDP_TRANSPORT_DIR = ./myrtio-udp
+UDP_TRANSPORT_DIR = myrtio-udp
 UDP_TRANSPORT_PACKAGE = $(UDP_TRANSPORT_DIR)/myrtio_udp
-UDP_TRANSPORT_VERSION = 0.0.0
+UDP_TRANSPORT_VERSION = 1.0.0
 
 define build-package
 	echo "$(2)" > "$(1)/.version"
