@@ -2,8 +2,8 @@
 import asyncio
 from typing import Optional
 
-from ..message import Message, parse_message
-from ..transport import MyrtIOTransport
+from myrtio import Message, MyrtIOTransport, parse_message
+
 from .persistent_stream import PersistentDatagramStream
 
 

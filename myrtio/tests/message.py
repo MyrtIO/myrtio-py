@@ -75,4 +75,3 @@ def test_status():
         TAIL_CODE
     ])
     assert not msg.is_successful
-

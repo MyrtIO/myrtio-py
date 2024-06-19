@@ -1,34 +1,68 @@
-VERSION = 1.0.1
 VENV_PATH = ./venv
 VENV = . $(VENV_PATH)/bin/activate;
+ROOT_VENV = . .$(VENV_PATH)/bin/activate;
+
+COMMON_DIR = ./myrtio
+COMMON_PACKGE = $(COMMON_DIR)/myrtio
+COMMON_VERSION = 1.0.1
+
+UDP_TRANSPORT_DIR = ./myrtio-udp
+UDP_TRANSPORT_PACKAGE = $(UDP_TRANSPORT_DIR)/myrtio_udp
+UDP_TRANSPORT_VERSION = 1.0.0
+
+define build-package
+	echo "$(2)" > "$(1)/.version"
+	cd $(1); $(ROOT_VENV) python -m build
+	cd $(1); pip install .
+endef
+
+define test-package
+	cd $(1); $(ROOT_VENV) pytest
+endef
+
+define clean-package
+	rm -rf "$(1)"/*.egg-info
+	rm -rf "$(1)/build"
+	rm -rf "$(1)/dist"
+	rm "$(1)/.version"
+endef
+
+define publish-package
+	git add Makefile
+	git commit -m "chore: release $(1) $(2)"
+	cd $(1); $(ROOT_VENV) python -m twine upload --repository pypi dist/*
+endef
 
 .PHONY: clean
 clean:
-	rm -rf *.egg-info
-	rm -rf build
-	rm -rf dist
+	$(call clean-package,$(COMMON_DIR))
+	$(call clean-package,$(UDP_TRANSPORT_DIR))
 
 .PHONY: test
 test:
-	$(VENV) pytest tests/*.py
+	$(call test-package,$(COMMON_DIR))
 
 .PHONY: build
 build:
-	echo "$(VERSION)" > .version
-	$(VENV) python -m build
-
-.PHONY: install
-install: build
-	$(VENV) pip3 install .
-
-.PHONY: install-system
-install-system: build
-	pip3 install .
+	$(call build-package,$(COMMON_DIR),$(COMMON_VERSION))
+	$(call build-package,$(UDP_TRANSPORT_DIR),$(UDP_TRANSPORT_VERSION))
 
 .PHONY: lint
 lint:
-	$(VENV) pylint $(SRC)
-	$(VENV) ruff $(SRC)
+	$(VENV) pylint \
+		"$(UDP_TRANSPORT_PACKAGE)" \
+		"$(COMMON_PACKGE)"
+	$(VENV) ruff check \
+		"$(UDP_TRANSPORT_PACKAGE)" \
+		"$(COMMON_PACKGE)"
+
+.PHONY: publish-common
+publish-common:
+	$(call publish-package,$(COMMON_DIR),$(COMMON_VERSION))
+
+.PHONY: publish-udp
+publish-udp:
+	$(call publish-package,$(UDP_TRANSPORT_DIR),$(UDP_TRANSPORT_VERSION))
 
 configure: requirements.txt
 	rm -rf $(VENV_PATH)
@@ -37,13 +71,3 @@ configure: requirements.txt
 $(VENV_PATH):
 	python3.11 -m venv $(VENV_PATH)
 	$(VENV) pip install -r requirements.txt
-
-.PHONY: publish
-publish:
-	git add Makefile
-	git commit -m "chore: release $(VERSION)"
-	make clean
-	make build
-	git tag "v$(VERSION)"
-	git push --tags
-	$(VENV) python -m twine upload --repository pypi dist/*

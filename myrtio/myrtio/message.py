@@ -1,3 +1,5 @@
+"""MyrtIO message implementation"""
+
 from .bytes import assert_byte
 from .constants import (
     FIRST_HEADER_CODE,
@@ -10,6 +12,7 @@ from .constants import (
 
 
 class Message:
+    """MyrtIO message"""
     _feature: int
     _action: int
     _payload: bytes
@@ -54,6 +57,7 @@ class Message:
 
     @property
     def payload_without_status(self) -> bytes:
+        """Message payload without status"""
         return self._payload[1:]
 
     @property
