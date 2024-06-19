@@ -4,7 +4,7 @@ ROOT_VENV = . .$(VENV_PATH)/bin/activate;
 
 COMMON_DIR = ./myrtio
 COMMON_PACKGE = $(COMMON_DIR)/myrtio
-COMMON_VERSION = 1.0.1
+COMMON_VERSION = 1.0.2
 
 UDP_TRANSPORT_DIR = ./myrtio-udp
 UDP_TRANSPORT_PACKAGE = $(UDP_TRANSPORT_DIR)/myrtio_udp
