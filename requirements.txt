@@ -1,8 +1,6 @@
 pylint==3.2.3
 ruff==0.4.9
 asyncio-datagram==1.4.0
-build==0.10.0
-twine==4.0.2
+build==1.2.1
+twine==5.1.0
 pytest==8.2.2
-# typing-extensions==4.11.0
-# aioconsole==0.7.1
