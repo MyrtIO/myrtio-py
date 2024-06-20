@@ -4,7 +4,7 @@ ROOT_VENV = . .$(VENV_PATH)/bin/activate;
 
 COMMON_DIR = myrtio
 COMMON_PACKGE = $(COMMON_DIR)/myrtio
-COMMON_VERSION = 1.0.2
+COMMON_VERSION = 1.0.3
 
 UDP_TRANSPORT_DIR = myrtio-udp
 UDP_TRANSPORT_PACKAGE = $(UDP_TRANSPORT_DIR)/myrtio_udp
@@ -57,11 +57,11 @@ lint:
 		"$(COMMON_PACKGE)"
 
 .PHONY: publish-common
-publish-common:
+publish-common: build
 	$(call publish-package,$(COMMON_DIR),$(COMMON_VERSION))
 
 .PHONY: publish-udp
-publish-udp:
+publish-udp: build
 	$(call publish-package,$(UDP_TRANSPORT_DIR),$(UDP_TRANSPORT_VERSION))
 
 configure: requirements.txt
