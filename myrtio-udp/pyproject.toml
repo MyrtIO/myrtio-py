@@ -23,7 +23,7 @@ classifiers = [
 ]
 dependencies = [
     "asyncio-datagram==1.4.0",
-    "myrtio==1.0.2",
+    "myrtio==1.0.3",
 ]
 dynamic = ["version"]
 

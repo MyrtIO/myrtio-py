@@ -8,7 +8,7 @@ COMMON_VERSION = 1.0.3
 
 UDP_TRANSPORT_DIR = myrtio-udp
 UDP_TRANSPORT_PACKAGE = $(UDP_TRANSPORT_DIR)/myrtio_udp
-UDP_TRANSPORT_VERSION = 1.0.0
+UDP_TRANSPORT_VERSION = 1.0.1
 
 define build-package
 	echo "$(2)" > "$(1)/.version"
